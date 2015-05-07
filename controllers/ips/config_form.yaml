@@ -9,7 +9,7 @@ name: Ip
 form: $/filipac/banip/models/ip/fields.yaml
 
 # Model Class name
-modelClass: Filipac\Banip\Models\Ip
+modelClass: filipac\Banip\Models\Ip
 
 # Default redirect location
 defaultRedirect: filipac/banip/ips

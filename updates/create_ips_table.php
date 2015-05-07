@@ -1,4 +1,4 @@
-<?php namespace Filipac\Banip\Updates;
+<?php namespace filipac\Banip\Updates;
 
 use Illuminate\Database\Schema\Blueprint;
 use Schema;

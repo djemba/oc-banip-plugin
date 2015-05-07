@@ -1,10 +1,10 @@
-<?php namespace Filipac\Banip;
+<?php namespace filipac\Banip;
 
 use Backend\Facades\Backend;
 use Cms\Classes\Layout;
 use Cms\Classes\Page;
 use Cms\Classes\Theme;
-use Filipac\Banip\Models\Settings;
+use filipac\Banip\Models\Settings;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Request;
@@ -70,7 +70,7 @@ class Plugin extends PluginBase
                 'description' => 'Manage user based settings.',
                 'category'    => 'Banned IPS',
                 'icon'        => 'icon-cog',
-                'class'       => 'Filipac\Banip\Models\Settings',
+                'class'       => 'filipac\Banip\Models\Settings',
                 'order'       => 500
             ]
         ];
@@ -86,7 +86,7 @@ class Plugin extends PluginBase
     public function boot()
     {
         $ip = static::_checks_ip();
-        $res = \Filipac\Banip\Models\Ip::where('address','=',$ip)->get();
+        $res = \filipac\Banip\Models\Ip::where('address','=',$ip)->get();
         if(!$this->isAdmin() && !$this->isCommandLineInterface() && $res->count() >= 1) {
             Event::listen('cms.page.beforeRenderPage', function($cl, $page) {
 
