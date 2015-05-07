@@ -28,7 +28,7 @@ class Plugin extends PluginBase
         return [
             'name'        => 'Ban IP',
             'description' => 'Simple plugin to ban certain IPs',
-            'author'      => 'Filipac',
+            'author'      => 'filipac',
             'icon'        => 'icon-leaf'
         ];
     }
