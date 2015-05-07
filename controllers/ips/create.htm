@@ -7,7 +7,7 @@
 
 <?php if (!$this->fatalError): ?>
 
-    <?= Form::open(['class' => 'layout']) ?>
+    <?= Form::open(['class' => 'layout','style' => 'padding: 10px;']) ?>
 
         <div class="layout-row">
             <?= $this->formRender() ?>
@@ -20,24 +20,13 @@
                     data-request="onSave"
                     data-hotkey="ctrl+s, cmd+s"
                     data-load-indicator="Creating Ip..."
-                    data-request-success="gaga(data);"
+                    data-request-success="BanIpManagePopup(data);"
                     data-update="#test"
                     class="btn btn-primary">
                     Create
                 </button>
-                <button
-                    type="button"
-                    data-request="onSave"
-                    data-request-data="close:1"
-                    data-hotkey="ctrl+enter, cmd+enter"
-                    data-load-indicator="Creating Ip..."
-                    data-request-success="gaga(data);"
-                    data-update="#test"
-                    class="btn btn-default">
-                    Create and Close
-                </button>
                 <span class="btn-text">
-                    or <a href="<?= Backend::url('filipac/banip/ips') ?>">Cancel</a>
+                    or <a href="javascript:;" onclick="cancelAddBan();">Cancel</a>
                 </span>
             </div>
         </div>
@@ -51,9 +40,12 @@
 
 <?php endif ?>
 <script>
-    function gaga(t) {
+    function BanIpManagePopup(t) {
         if(t.success) {
             $(".modal").modal('hide');
         }
+    }
+    function cancelAddBan() {
+        $(".modal").modal('hide');
     }
 </script>
