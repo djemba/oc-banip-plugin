@@ -1,0 +1,23 @@
+{
+    "name": "filipac/banip",
+    "type": "october-plugin",
+    "description": "Simple plugin to ban certain IPs",
+    "keywords": ["october", "cms", "plugin", "ban ip", "ban"],
+    "license": "MIT",
+
+    "authors": [
+        {
+            "name": "Filip Pacurar",
+            "email": "filip@pacurar.net"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "filipac/ip": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Filipac\\Banip\\": ""
+        }
+    }
+}

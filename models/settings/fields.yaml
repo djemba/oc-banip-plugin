@@ -1,0 +1,9 @@
+fields:
+    layout:
+        label: Test
+        type: dropdown
+        options: getLayoutOptions
+    content:
+        type: codeeditor
+        size: huge
+        language: twig

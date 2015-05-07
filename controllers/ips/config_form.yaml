@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Ip
+
+# Model Form Field configuration
+form: $/filipac/banip/models/ip/fields.yaml
+
+# Model Class name
+modelClass: Filipac\Banip\Models\Ip
+
+# Default redirect location
+defaultRedirect: filipac/banip/ips
+
+# Create page
+create:
+    title: Create Ip
+    redirect: filipac/banip/ips/update/:id
+    redirectClose: filipac/banip/ips
+
+# Update page
+update:
+    title: Edit Ip
+    redirect: filipac/banip/ips
+    redirectClose: filipac/banip/ips
+
+# Preview page
+preview:
+    title: Preview Ip
