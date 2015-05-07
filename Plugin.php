@@ -86,16 +86,15 @@ class Plugin extends PluginBase
     public function boot()
     {
         $ip = static::_checks_ip();
-        $res = \filipac\Banip\Models\Ip::where('address','=',$ip)->get();
-        if(!$this->isAdmin() && !$this->isCommandLineInterface() && $res->count() >= 1) {
+        $match = \filipac\Banip\Models\Ip::where('address','=',$ip)->get();
+        if(!$this->isAdmin() && !$this->isCommandLineInterface() && $match->count() >= 1) {
             Event::listen('cms.page.beforeRenderPage', function($cl, $page) {
-
-                return Settings::get('content');
+                $default = 'Your IP has been banned!';
+                $content = Settings::get('content',$default);
+                if(Str::length($content) == 0) $content = $default;
+                return $content;
             });
             Event::listen('cms.page.display', function($controller, $path, $page, $content) {
-                //$d = View::make('rainlab.user::mail.activate')->render();
-                //dd($d);
-                $d = '';
                 $layout = Settings::get('layout');
                 if(!empty($layout) AND Layout::load(Theme::getActiveTheme(), $layout) !== null)
                     $page->layout = $layout;

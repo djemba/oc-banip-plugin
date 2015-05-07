@@ -1,6 +1,6 @@
 fields:
     layout:
-        label: Test
+        label: Layout for banned page
         type: dropdown
         options: getLayoutOptions
     content:
