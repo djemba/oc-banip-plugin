@@ -1,21 +1,24 @@
 <?php Block::put('breadcrumb') ?>
-    <ul>
-        <li><a href="<?= Backend::url('filipac/banip/ips') ?>">Ips</a></li>
-        <li><?= e($this->pageTitle) ?></li>
-    </ul>
+<ul>
+    <li><a href="<?= Backend::url('filipac/banip/ips') ?>">Ips</a></li>
+    <li><?= e($this->pageTitle) ?></li>
+</ul>
 <?php Block::endPut() ?>
 
 <?php if (!$this->fatalError): ?>
 
-    <?= Form::open(['class' => 'layout','style' => 'padding: 10px;']) ?>
-
-        <div class="layout-row">
-            <?= $this->formRender() ?>
-        </div>
-
-        <div class="form-buttons">
-            <div class="loading-indicator-container">
-                <button
+<?= Form::open(['class' => 'layout']) ?>
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="popup">&times;</button>
+    <h4 class="modal-title">Ban a new IP Address</h4>
+</div>
+<div class="modal-body">
+    <?= $this->formRender() ?>
+</div>
+<div class="modal-footer">
+    <div class="form-buttons">
+        <div class="loading-indicator-container">
+            <button
                     type="submit"
                     data-request="onSave"
                     data-hotkey="ctrl+s, cmd+s"
@@ -23,25 +26,24 @@
                     data-request-success="BanIpManagePopup(data);"
                     data-update="#test"
                     class="btn btn-primary">
-                    Create
-                </button>
-                <span class="btn-text">
-                    or <a href="javascript:;" onclick="cancelAddBan();">Cancel</a>
-                </span>
-            </div>
+                Create
+            </button>
+            <a href="javascript:;" data-hotkey="ctrl+x, cmd+x" class="btn btn-default" onclick="cancelAddBan();">Cancel</a>
         </div>
+    </div>
+</div>
 
-    <?= Form::close() ?>
+<?= Form::close() ?>
 
 <?php else: ?>
 
-    <p class="flash-message static error"><?= e($this->fatalError) ?></p>
-    <p><a href="<?= Backend::url('filipac/banip/ips') ?>" class="btn btn-default">Return to ips list</a></p>
+<p class="flash-message static error"><?= e($this->fatalError) ?></p>
+<p><a href="<?= Backend::url('filipac/banip/ips') ?>" class="btn btn-default">Return to ips list</a></p>
 
 <?php endif ?>
 <script>
     function BanIpManagePopup(t) {
-        if(t.success) {
+        if (t.success) {
             $(".modal").modal('hide');
         }
     }

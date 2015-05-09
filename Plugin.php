@@ -5,6 +5,7 @@ use Cms\Classes\Layout;
 use Cms\Classes\Page;
 use Cms\Classes\Theme;
 use filipac\Banip\Models\Settings;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Request;
@@ -87,7 +88,12 @@ class Plugin extends PluginBase
     public function boot()
     {
         $ip = static::_checks_ip();
-        $match = \filipac\Banip\Models\Ip::where('address','=',$ip)->get();
+        try {
+            $match = \filipac\Banip\Models\Ip::where('address','=',$ip)->get();
+        } catch (QueryException $e) {
+            \Log::info('The Filipac.Banip was not properly installed (missing table)');
+            return;
+        }
         if(!$this->isAdmin() && !$this->isCommandLineInterface() && $match->count() >= 1) {
             Event::listen('cms.page.beforeRenderPage', function($cl, $page) {
                 $default = 'Your IP has been banned!';
