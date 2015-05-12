@@ -16,20 +16,18 @@
     <?= $this->formRender() ?>
 </div>
 <div class="modal-footer">
-    <div class="form-buttons">
-        <div class="loading-indicator-container">
-            <button
-                    type="submit"
-                    data-request="onSave"
-                    data-hotkey="ctrl+s, cmd+s"
-                    data-load-indicator="Creating Ip..."
-                    data-request-success="BanIpManagePopup(data);"
-                    data-update="#test"
-                    class="btn btn-primary">
-                Create
-            </button>
-            <a href="javascript:;" data-hotkey="ctrl+x, cmd+x" class="btn btn-default" onclick="cancelAddBan();">Cancel</a>
-        </div>
+    <div class="loading-indicator-container">
+        <button
+                type="submit"
+                data-request="onSave"
+                data-hotkey="ctrl+s, cmd+s"
+                data-load-indicator="Creating Ip..."
+                data-request-success="BanIpManagePopup(data);"
+                data-update="#test"
+                class="btn btn-primary">
+            Create
+        </button>
+        <a href="javascript:;" data-hotkey="ctrl+x, cmd+x" class="btn btn-default" onclick="cancelAddBan();">Cancel</a>
     </div>
 </div>
 

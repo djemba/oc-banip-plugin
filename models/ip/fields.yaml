@@ -5,7 +5,7 @@
 fields:
     address:
             label: Address
-            span: auto
+            span: full
             required: true
             attributes:
                 default-focus: 1
