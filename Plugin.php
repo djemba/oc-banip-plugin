@@ -10,14 +10,22 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+use October\Rain\Support\Traits\KeyParser;
 use System\Classes\PluginBase;
+use System\Traits\AssetMaker;
+use System\Traits\ViewMaker;
 
 /**
  * Banip Plugin Information File
  */
 class Plugin extends PluginBase
 {
+    use ViewMaker;
+    use KeyParser;
+    use AssetMaker;
+
 
     /**
      * Returns information about this plugin.
@@ -81,19 +89,19 @@ class Plugin extends PluginBase
 
     public function register()
     {
-
     }
 
 
     public function boot()
     {
-        $ip = static::_checks_ip();
+        $ip = Request::ip();
         try {
             $match = \filipac\Banip\Models\Ip::where('address','=',$ip)->get();
         } catch (QueryException $e) {
             \Log::info('The Filipac.Banip was not properly installed (missing table)');
             return;
         }
+
         if(!$this->isAdmin() && !$this->isCommandLineInterface() && $match->count() >= 1) {
             Event::listen('cms.page.beforeRenderPage', function($cl, $page) {
                 $default = 'Your IP has been banned!';
@@ -110,14 +118,7 @@ class Plugin extends PluginBase
                 $res = $controller->runPage($page);
                 return Response::make($res);
             });
-            //abort(403,'Your IP has been banned!');
         }
-    }
-
-
-    public function provides()
-    {
-        return ['filipac/ip'];
     }
 
 
@@ -129,30 +130,6 @@ class Plugin extends PluginBase
     private function isCommandLineInterface()
     {
         return (php_sapi_name() === 'cli');
-    }
-
-    private static function _checks_ip() {
-        if($_SERVER) {
-            if( isset($_SERVER["HTTP_X_FORWARDED_FOR"]) ) {
-                return $_SERVER["HTTP_X_FORWARDED_FOR"];
-            } else if( isset($_SERVER["HTTP_CLIENT_IP"]) ) {
-                return $_SERVER["HTTP_CLIENT_IP"];
-            } else if( isset($_SERVER["REMOTE_ADDR"]) ) {
-                return $_SERVER["REMOTE_ADDR"];
-            } else {
-                return 'Error';
-            }
-        } else {
-            if( getenv( 'HTTP_X_FORWARDED_FOR' ) ) {
-                return getenv( 'HTTP_X_FORWARDED_FOR' );
-            } else if( getenv( 'HTTP_CLIENT_IP' ) ) {
-                return getenv( 'HTTP_CLIENT_IP' );
-            } else if( getenv( 'REMOTE_ADDR' ) ) {
-                return getenv( 'REMOTE_ADDR' );
-            } else {
-                return 'Error';
-            }
-        }
     }
 
 
