@@ -1,3 +1,4 @@
 1.0.1:
   - First version of Banip
   - create_ips_table.php
+1.0.2: Use Illuminate component to get the IP to prevent spoofing
